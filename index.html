@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="shortcut icon" href="./assets/keyboard.png" type="image/x-icon">
+    <title>Tap the key</title>
+</head>
+
+<body>
+    <div class="main">
+        <div class="gameInfo">
+            <div class="gameInfo-section gameInfo-currentScore">
+                <span id="current-score">0</span>
+                <span>Score</span>
+            </div>
+            <div class="gameInfo-section gameInfo-seconds">
+                <span id="seconds">0</span>
+                <span>Seconds</span>
+            </div>
+
+            <div class="gameInfo-section gameInfo-numberOfTaps">
+                <span id="numberOfTaps">0</span>
+                <span>Tapped</span>
+            </div>
+
+            <div class="gameInfo-section gameInfo-seconds">
+                <span id="best-score">0</span>
+                <span>Best score</span>
+            </div>
+
+
+        </div>
+
+        <div class="keyboard">
+            <div class="keyboard-row1">
+                <button class="keyboard-key" value="81">Q</button>
+                <button class="keyboard-key" value="87">W</button>
+                <button class="keyboard-key" value="69">E</button>
+                <button class="keyboard-key" value="82">R</button>
+                <button class="keyboard-key" value="84">T</button>
+                <button class="keyboard-key" value="90">Z</button>
+                <button class="keyboard-key" value="85">U</button>
+                <button class="keyboard-key" value="73">I</button>
+                <button class="keyboard-key" value="79">O</button>
+                <button class="keyboard-key" value="80">P</button>
+                <button class="keyboard-key" value="186">Ü</button>
+            </div>
+            <div class="keyboard-row2">
+                <button class="keyboard-key" value="65">A</button>
+                <button class="keyboard-key" value="83">S</button>
+                <button class="keyboard-key" value="68">D</button>
+                <button class="keyboard-key" value="70">F</button>
+                <button class="keyboard-key" value="71">G</button>
+                <button class="keyboard-key" value="72">H</button>
+                <button class="keyboard-key" value="74">J</button>
+                <button class="keyboard-key" value="75">K</button>
+                <button class="keyboard-key" value="76">L</button>
+                <button class="keyboard-key" value="192">Ö</button>
+                <button class="keyboard-key" value="222">Ä</button>
+            </div>
+
+            <div class="keyboard-row2">
+                <button class="keyboard-key" value="89">Y</button>
+                <button class="keyboard-key" value="88">X</button>
+                <button class="keyboard-key" value="67">C</button>
+                <button class="keyboard-key" value="86">V</button>
+                <button class="keyboard-key" value="66">B</button>
+                <button class="keyboard-key" value="78">N</button>
+                <button class="keyboard-key" value="77">M</button>
+                <button class="keyboard-key" value="188">,</button>
+                <button class="keyboard-key" value="190">.</button>
+            </div>
+        </div>
+
+        <div class="buttonWrapper">
+            <button autofocus class="actionBtn start">Start</button>
+            <button class="actionBtn stop">Stop</button>
+            <button class="actionBtn resume">Resume</button>
+
+        </div>
+        <div class="modal">
+            <p>Pressed <strong>Wrong</strong> Key</p>
+
+        </div>
+    </div>
+
+    <script src="app.js" defer></script>
+</body>
+
+</html>
