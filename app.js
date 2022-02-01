@@ -87,6 +87,7 @@ const stopTime = () => {
 
 const resumeTime = () => {
   isPaused = false;
+  clearInterval(timeInterval);
   if (isGameStarted) {
     timeInterval = setInterval(() => {
       seconds += 1;
