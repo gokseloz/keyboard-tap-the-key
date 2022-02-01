@@ -31,8 +31,8 @@ const startTheGame = () => {
   isPaused = false;
   isGameStarted = true;
   localStorage.removeItem("seconds");
-  getNewKey();
   resetTime();
+  getNewKey();
   startTime();
   resetCurrentScore();
   resetNumberOfTaps();
@@ -63,17 +63,10 @@ const timeBtnsStyle = (methodType) => {
 };
 
 const startTime = () => {
-  seconds += 1;
-  secondsEl.textContent = seconds;
-
-  if (isPaused) {
-    clearInterval(timeInterval);
-    seconds = 0;
-    secondsEl.textContent = seconds;
-  }
-
   isPaused = false;
   clearInterval(timeInterval);
+  seconds += 1;
+  secondsEl.textContent = seconds;
   timeInterval = setInterval(() => {
     seconds += 1;
     secondsEl.textContent = seconds;
@@ -104,11 +97,15 @@ const showBestScore = () => {
   }
 };
 
+const saveInLocalStorage = (key, value) => {
+  JSON.stringify(localStorage.setItem(key, value));
+};
+
 const calculateGainedScore = () => {
   const baseDivider = 10;
   const secondFromPreviousClick = JSON.parse(localStorage.getItem("seconds"));
   const secondFromCurrentClick = Number(secondsEl.textContent);
-  JSON.stringify(localStorage.setItem("seconds", secondFromCurrentClick));
+  saveInLocalStorage("seconds", secondFromCurrentClick);
 
   if (secondFromPreviousClick) {
     gainedScore =
@@ -138,7 +135,7 @@ const updateCurrentScore = () => {
 
 const updateBestScore = () => {
   if (currentScore >= bestScore) {
-    JSON.stringify(localStorage.setItem("bestScore", currentScore));
+    saveInLocalStorage("bestScore", currentScore);
     bestScoreEl.textContent = currentScore;
   }
 };
@@ -147,23 +144,23 @@ const getCorrespondingBtn = (value) => {
   return document.querySelector(`button[value="${value}"]`);
 };
 
-const getNewCharacter = () => {
+const getNewCharacterFromArray = () => {
   const randomNumber = Math.floor(Math.random() * KEY_CODES.length);
   return KEY_CODES[randomNumber];
 };
 
 const getNewKey = () => {
   if (document.querySelector(".demanded")) return;
-  demandedKey = getNewCharacter();
+  demandedKey = getNewCharacterFromArray();
   demandedButton = getCorrespondingBtn(demandedKey);
   demandedButton.classList.add("demanded");
 };
 
-const deleteOldCharacter = () => {
+const removeCharacter = () => {
   demandedButton.classList.remove("demanded");
 };
 
-const checkpressedKey = (demandedKey, pressedKey) => {
+const checkPressedKey = (demandedKey, pressedKey) => {
   return demandedKey === pressedKey;
 };
 
@@ -204,11 +201,11 @@ const resetGame = () => {
   }, 2000);
 };
 
-function addSound() {
+const addSound = () => {
   new Audio("./assets/keyType.mp3").play();
-}
+};
 
-const keyActive = (e) => {
+const handleKeyDown = (e) => {
   if (
     !isPaused &&
     !isPressed &&
@@ -220,11 +217,11 @@ const keyActive = (e) => {
     tappedEl.textContent = numberOfTaps;
     pressedKey = getCorrespondingBtn(e.keyCode);
     pressedKey.classList.add("pressed");
-    const checkIsTrue = checkpressedKey(demandedKey, e.keyCode);
+    const isMatched = checkPressedKey(demandedKey, e.keyCode);
 
-    if (checkIsTrue) {
+    if (isMatched) {
       updateCurrentScore();
-      deleteOldCharacter();
+      removeCharacter();
       getNewKey();
     } else {
       resetGame();
@@ -233,13 +230,13 @@ const keyActive = (e) => {
   }
 };
 
-const keyDisactive = () => {
+const handleKeyUp = () => {
   pressedKey?.classList.remove("pressed");
   isPressed = false;
 };
 
-window.addEventListener("keydown", keyActive);
-window.addEventListener("keyup", keyDisactive);
+window.addEventListener("keydown", handleKeyDown);
+window.addEventListener("keyup", handleKeyUp);
 
 startBtn.addEventListener("click", startTheGame);
 resumeBtn.addEventListener("click", resumeTime);
